@@ -1,19 +1,86 @@
-import {React,useState} from 'react';
+import {React,useState} from "react";
 import Background from "@/assets/login2.png";
 import Victory from "@/assets/Victory.svg";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { Button } from '@/components/ui/button';
-
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import { apiClient } from "@/lib/api-client";
+import { SIGNUP_ROUTE, LOGIN_ROUTE } from "@/utils/constants";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
 
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setconfirmPassword] = useState("");
 
-    const handleLogin = async () => { };
-    const handleSignup = async () => { };
+    const validateSignup = () => {
+        if (!(email.length)) {
+            toast.error("Email is required.");
+            return false;
+        }
+        if (!(password.length)) {
+            toast.error("Password is required.");
+            return false;
+        }
+        if (password !== confirmPassword) {
+            toast.error("Password and confirm password are different.");
+            return false;
+        }
+        return true;
+    };
+    const validateLogin = () => {
+        if (!(email.length)) {
+            toast.error("Email is required.");
+            return false;
+        }
+        if (!(password.length)) {
+            toast.error("Password is required.");
+            return false;
+        }
+        return true;
+    };
+
+    const handleLogin = async () => {
+        if (validateLogin()) {
+            try {
+                const response = await apiClient.post(LOGIN_ROUTE, { email, password }, { withCredentials: true });
+
+                if (response.data.user.id) {
+                    if (response.data.user.profileSetup) {
+                        navigate("/chat");
+                    }
+                    else navigate("/profile")
+                    console.log({ response });
+                    toast.success("Successfully logged in!");
+                }
+                console.log({ response });
+            } catch (error) {
+                if (error.response && error.response.status === 404) {
+                    toast.error("Email not found. Please sign up!");
+                } else if (error.response && error.response.status === 400) {
+                    toast.error("Incorrect password. Please try again!");
+                } else {
+                    console.log("Login failed:", error);
+                    toast.error("An unknown error occurred. Please try again!");
+                }
+            }
+        }
+};
+    const handleSignup = async () => {
+        if (validateSignup()) {
+            const response = await apiClient.post(SIGNUP_ROUTE,
+                { email, password },
+                { withCredentials: true });
+            if (response.status === 201) {
+                setUserInfo(response.data.user);
+                navigate("/profile");
+            }
+            console.log({ response });
+        }
+     };
 
 
     return (
@@ -22,7 +89,7 @@ const Auth = () => {
                 <div className="flex flex-col gap-10 item-center justify-center">
                     <div className="flex items-center justify-center flex-col">
                         <div className="flex items-center justify-center">
-                            <h1 className='text-4xl font-bold md:text-6xl'>Welcome</h1>
+                            <h1 className="text-4xl font-bold md:text-6xl">Welcome</h1>
                             <img src={Victory} alt="Victory Emoji" className="h-[100px]" />
                         </div>
                         <p className="font-medium text-center">Fill in the details to get started with the best chat app!!! </p>
