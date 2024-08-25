@@ -9,8 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { apiClient } from '@/lib/api-client';
- import {/* ADD_PROFILE_IMAGE_ROUTE,*/ HOST/*, REMOVE_PROFILE_IMAGE_ROUTE*/, UPDATE_PROFILE_ROUTE } from '@/utils/constants';
-
+import { HOST, UPDATE_PROFILE_ROUTE } from '@/utils/constants';
 const Profile = () => {
   const navigate = useNavigate();
   const { userInfo, setUserInfo } = useAppStore();
@@ -58,11 +57,20 @@ const Profile = () => {
       }
     }
   };
+  const handleNavigate = () => {
+    if (userInfo.profileSetup) {
+      navigate("/chat");
+    } else {
+      toast.error("Please setup profile");
+    }
+  };
   
   return (
     <div className="bg-[#1b1c24] h-[100vh] flex items-center justify-center flex-col gap-10">
       <div className="flex flex-col gap-10 w-[80vw] md:w-max">
-        <IoArrowBack className="text-4xl lg:text-6xl text-white/90 cursor-pointer" />
+        <div onClick={handleNavigate}>
+          <IoArrowBack className="text-4xl lg:text-6xl text-white/90 cursor-pointer" />
+        </div>
         <div className="grid grid-cols-2">
           <div className="h-full w-32 md:w-48 md:h-48 relative flex items-center justify-center"
             onMouseEnter={() => setHovered(true)}
