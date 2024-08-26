@@ -1,5 +1,6 @@
 
 //import { useAppStore } from "@/store";
+import EmojiPicker from "emoji-picker-react";
 import { useEffect, useRef, useState } from "react";
 import { GrAttachment } from "react-icons/gr";
 import { IoSend } from "react-icons/io5";
