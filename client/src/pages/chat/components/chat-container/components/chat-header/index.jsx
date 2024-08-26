@@ -17,7 +17,7 @@ const ChatHeader = () => {
                                 <AvatarImage src={`${HOST}/${selectedChatData.image}`} alt="profile" className="object-cover w-full h-full bg-black rounded-full" />
                             ) : (
                                 <div
-                                    className={`uppercase h-12 w-12 text-lg border-[1px] flex items-center justify-center rounded-full ${getColor(selectedChatData.Color)}`}
+                                    className={`uppercase h-12 w-12 text-lg border-[1px] flex items-center justify-center rounded-full ${getColor(selectedChatData.color)}`}
                                 >
                                     {selectedChatData.firstName ? (
                                         selectedChatData.firstName.charAt(0) // Use charAt(0) instead of split("")
