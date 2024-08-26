@@ -24,7 +24,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useAppStore } from "@/store";
 
 
-const CreateChannel = () => {
+const NewDM = () => {
     const { setSelectedChatData, setSelectedChatType } = useAppStore();
     const [openNewContactModel, setOpenNewContactModel] = useState(false);
     const [searchedContacts, setSearchedContacts] = useState([]);
@@ -131,4 +131,4 @@ const CreateChannel = () => {
     );
 };
 
-export default CreateChannel;
+export default NewDM;
