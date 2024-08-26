@@ -1,3 +1,4 @@
+import ProfileInfo from "./components/profile-info";
 
 const ContactsContainer = () => {
   return (
@@ -20,7 +21,7 @@ const ContactsContainer = () => {
           {/* group  chat */}
         </div>
       </div>
-      {/* <ProfileInfo /> */}
+      <ProfileInfo/>
     </div>
   );
 };
