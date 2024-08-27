@@ -24,7 +24,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useAppStore } from "@/store";
 
 
-const NewDm = () => {
+const CreateChannel = () => {
     const { setSelectedChatData, setSelectedChatType } = useAppStore();
     const [openNewContactModel, setOpenNewContactModel] = useState(false);
     const [searchedContacts, setSearchedContacts] = useState([]);
@@ -80,39 +80,37 @@ const NewDm = () => {
                             onChange={(e) => searchContacts(e.target.value)}
                         />
                     </div>
-                    {searchedContacts.length > 0 && (
-                        <ScrollArea className="h-[250px]">
-                            <div className="flex flex-col gap-5">
-                                {searchedContacts.map((contact) => (
-                                    <div key={contact._id} className="flex gap-3 items-center cursor-pointer"
-                                        onClick={() => selectNewContact(contact)}>
-                                        <div className="w-12 h-12 relative">
-                                            <Avatar className="h-12 w-12 rounded-full overflow-hidden">
-                                                {contact.image ? (
-                                                    <AvatarImage src={`${HOST}/${contact.image}`}
-                                                        alt="profile"
-                                                        className="object-cover w-full h-full bg-black"
-                                                    />
-                                                ) : (<div className={`uppercase h-32 w-32 md:w-48 md:h-48 text-5xl border-[1px] flex items-center justify-center rounded-full ${getColor(contact.color.toString())}}`}>
-                                                    {contact.firstName
-                                                        ? contact.firstName.split("").shift()
-                                                        : contact.email.split("").shift()
-                                                    }
-                                                </div>)}
-                                            </Avatar>
-                                        </div>
-                                        <div className="flex flex-col">
-                                            <span>
-                                                {contact.firstName && contact.lastName
-                                                    ? `${contact.firstName} ${contact.lastName}` : contact.email}
-                                            </span>
-                                            <span className="text-xs">{contact.email}</span>
-                                        </div>
+                    <ScrollArea className="h-[250px]">
+                        <div className="flex flex-col gap-5">
+                            {searchedContacts.map((contact) => (
+                                <div key={contact._id} className="flex gap-3 items-center cursor-pointer"
+                                    onClick={() => selectNewContact(contact)}>
+                                    <div className="w-12 h-12 relative">
+                                        <Avatar className="h-12 w-12 rounded-full overflow-hidden">
+                                            {contact.image ? (
+                                                <AvatarImage src={`${HOST}/${contact.image}`}
+                                                    alt="profile"
+                                                    className="object-cover w-full h-full bg-black"
+                                                />
+                                            ) : (<div className={`uppercase h-32 w-32 md:w-48 md:h-48 text-5xl border-[1px] flex items-center justify-center rounded-full ${getColor(contact.color.toString())}}`}>
+                                                {contact.firstName
+                                                    ? contact.firstName.split("").shift()
+                                                    : contact.email.split("").shift()
+                                                }
+                                            </div>)}
+                                        </Avatar>
                                     </div>
-                                ))}
-                            </div>
-                        </ScrollArea>
-                    )}
+                                    <div className="flex flex-col">
+                                        <span>
+                                            {contact.firstName && contact.lastName
+                                                ? `${contact.firstName} ${contact.lastName}` : contact.email}
+                                        </span>
+                                        <span className="text-xs">{contact.email}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </ScrollArea>
                     {searchedContacts.length <= 0 && (
                         <div className="text-opacity-80 text-white flex flex-col items-center lg:text-2xl text-xl transition-all duration-300 text-center">
                             <h3 className="pacifico-regular">
@@ -133,4 +131,4 @@ const NewDm = () => {
     );
 };
 
-export default NewDm;
+export default CreateChannel;
