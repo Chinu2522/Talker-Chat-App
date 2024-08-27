@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
 import { apiClient } from "@/lib/api-client";
-import {  CREATE_CHANNEL_ROUTES, GET_ALL_CONTACTS_ROUTES} from "@/utils/constants";
+import { CREATE_CHANNEL_ROUTES, GET_ALL_CONTACTS_ROUTES} from "@/utils/constants";
 import { useAppStore } from "@/store";
 import { Button } from "@/components/ui/button";
 import MultipleSelector from "@/components/ui/multipleselect";
@@ -31,26 +31,26 @@ const CreateChannel = () => {
     useEffect(() => {
         const getData = async () => {
             const response = await apiClient.get(GET_ALL_CONTACTS_ROUTES, { withCredentials: true, });
-            setAllContacts(response.data.contacts);
+            setAllContacts(response.data.contacts)
         };
         getData();
-    }, []);
+    },[])
 
     const createChannel = async () => {
         try {
             if (channelName.length > 0 && selectedContacts.length > 0) {
                 const response = await apiClient.post(CREATE_CHANNEL_ROUTES, {
                     name: channelName,
-                    members: selectedContacts.map((contact) => contact.value),
-                }, { withCredentials: true });
-            
+                    members: selectedContacts.map((contact)=>contact.value),
+                },{withCredentials: true})   
+            };
             if (response.status === 201) {
                 setChannelName("");
                 setSelectedContacts([]);
                 setNewChannelModel(false);
                 addChannel(response.data.channel);
-                }
-        };
+            }
+            
         } catch (error) {
             console.log(error);
         }
@@ -67,7 +67,7 @@ const CreateChannel = () => {
                         />
                     </TooltipTrigger>
                     <TooltipContent className="bg-[#1c1b1e] mb-2 p-3 text-white">
-                        Create New Group
+                        Create New channel
                     </TooltipContent>
                 </Tooltip>
             </TooltipProvider>
