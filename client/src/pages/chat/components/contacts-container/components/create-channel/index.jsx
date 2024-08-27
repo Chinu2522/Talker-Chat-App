@@ -11,19 +11,25 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
+
+import { getColor } from '@/lib/utils';
 import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
+import Background from "@/assets/hii.png";
 import { apiClient } from "@/lib/api-client";
-import { CREATE_CHANNEL_ROUTES, GET_ALL_CONTACTS_ROUTES} from "@/utils/constants";
+import { GET_ALL_CONTACTS_ROUTES, HOST, SEARCH_CONTACTS_ROUTES } from "@/utils/constants";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useAppStore } from "@/store";
 import { Button } from "@/components/ui/button";
 import MultipleSelector from "@/components/ui/multipleselect";
 
 
 const CreateChannel = () => {
-    const { setSelectedChatData, setSelectedChatType ,addChannel} = useAppStore();
+    const { setSelectedChatData, setSelectedChatType } = useAppStore();
     const [newChannelModel, setNewChannelModel] = useState(false);
+    const [searchedContacts, setSearchedContacts] = useState([]);
     const [allContacts, setAllContacts] = useState([]);
     const [selectedContacts, setSelectedContacts] = useState([]);
     const [channelName, setChannelName] = useState("");
@@ -37,23 +43,7 @@ const CreateChannel = () => {
     },[])
 
     const createChannel = async () => {
-        try {
-            if (channelName.length > 0 && selectedContacts.length > 0) {
-                const response = await apiClient.post(CREATE_CHANNEL_ROUTES, {
-                    name: channelName,
-                    members: selectedContacts.map((contact)=>contact.value),
-                },{withCredentials: true})   
-            };
-            if (response.status === 201) {
-                setChannelName("");
-                setSelectedContacts([]);
-                setNewChannelModel(false);
-                addChannel(response.data.channel);
-            }
-            
-        } catch (error) {
-            console.log(error);
-        }
+        
     };
 
     return (
@@ -90,7 +80,7 @@ const CreateChannel = () => {
                             defaultOptions={allContacts}
                             placeholder="Search Contacts"
                             value={selectedContacts}
-                            onChange={setSelectedContacts}
+                            onChange={setSearchedContacts}
                             emptyIndicator={
                                 <p className="text-center text-lg leading-10 text-gray-600">No Result found.</p>
                             } />
