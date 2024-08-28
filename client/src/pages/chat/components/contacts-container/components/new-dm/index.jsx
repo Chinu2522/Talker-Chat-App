@@ -24,7 +24,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useAppStore } from "@/store";
 
 
-const CreateChannel = () => {
+const NewDM = () => {
     const { setSelectedChatData, setSelectedChatType } = useAppStore();
     const [openNewContactModel, setOpenNewContactModel] = useState(false);
     const [searchedContacts, setSearchedContacts] = useState([]);
@@ -80,7 +80,8 @@ const CreateChannel = () => {
                             onChange={(e) => searchContacts(e.target.value)}
                         />
                     </div>
-                    <ScrollArea className="h-[250px]">
+                    {searchContacts.length > 0 && (
+                        <ScrollArea className="h-[250px]">
                         <div className="flex flex-col gap-5">
                             {searchedContacts.map((contact) => (
                                 <div key={contact._id} className="flex gap-3 items-center cursor-pointer"
@@ -110,7 +111,8 @@ const CreateChannel = () => {
                                 </div>
                             ))}
                         </div>
-                    </ScrollArea>
+                    </ScrollArea>)}
+                    
                     {searchedContacts.length <= 0 && (
                         <div className="text-opacity-80 text-white flex flex-col items-center lg:text-2xl text-xl transition-all duration-300 text-center">
                             <h3 className="pacifico-regular">
@@ -131,4 +133,4 @@ const CreateChannel = () => {
     );
 };
 
-export default CreateChannel;
+export default NewDM;

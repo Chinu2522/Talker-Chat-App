@@ -100,7 +100,8 @@ export const getAllContacts = async (request, response, next) => {
             label: user.firstName
                 ? `${user.firstName} ${user.lastName}`
                 : user.email,
-        }))
+            value: user._id,
+        }));
         return response.status(200).json({ contacts });
 
     } catch (error) {
