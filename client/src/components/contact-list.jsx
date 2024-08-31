@@ -57,11 +57,11 @@ return (
                             </Avatar>
                             )}
                         {
-                            isChannel && <div className="bg-[#ffffff22] h-10 w-10 items-center justify-center rounded-full">#</div>
+                            isChannel && <div className="bg-[#ffffff22] h-10 w-10 items-center justify-center flex rounded-full">#</div>
                         }
                         {
                             isChannel
-                                ? (<span>{contact.namme}</span>)
+                                ? (<span>{contact.name}</span>)
                                 : (<span>{`${contact.firstName} ${contact.lastName}` }</span>)
                         }
                 </div>
