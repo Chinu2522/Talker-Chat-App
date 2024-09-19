@@ -1,6 +1,5 @@
 import User from "../models/UserModel.js";
 import Channel from "../models/ChannelModel.js";
-import mongoose from "mongoose";
 export const createChannel = async (request, response, next) => {
     try {
         const { name, members } = request.body;

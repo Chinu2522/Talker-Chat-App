@@ -11,8 +11,6 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
-
-import { getColor } from '@/lib/utils';
 import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
@@ -53,7 +51,7 @@ const CreateChannel = () => {
                 }
             }
         } catch(error) {
-            console.log(error);
+            console.log({error});
         }
     }
 
