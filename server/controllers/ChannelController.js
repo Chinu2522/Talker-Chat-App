@@ -1,10 +1,10 @@
 import User from "../models/UserModel.js";
 import Channel from "../models/ChannelModel.js";
+import mongoose from "mongoose";
 export const createChannel = async (request, response, next) => {
     try {
         const { name, members } = request.body;
         const userId = request.userId;
-        
         const admin = await User.findById(userId);
         if (!admin) {
             return response.status(400).send("Admin user not found.");
@@ -25,4 +25,3 @@ export const createChannel = async (request, response, next) => {
         return response.status(500).send("Internal Server Error");
     }
 };
-
