@@ -43,15 +43,9 @@ return (
                                                     : getColor(contact.color)}
                                             uppercase h-10 w-10 text-lg border-[1px] flex items-center justify-center rounded-full ${getColor(contact.color)}`}
                                     >
-                                        {contact.firstName ? (
-                                            contact.firstName.charAt(0) // Use charAt(0) instead of split("")
-                                        ) : (
-                                            contact.email ? (
-                                                contact.email.charAt(0) // Use charAt(0) instead of split("")
-                                            ) : (
-                                                "" // Return an empty string if both firstName and email are undefined
-                                            )
-                                        )}
+                                            {contact.firstName
+                                            ? contact.firstName.split("").shift()
+                                            : contact.email.split("").shift()}
                                     </div>
                                 )}
                             </Avatar>
